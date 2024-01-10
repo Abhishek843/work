@@ -1,8 +1,7 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BasicPlanService } from './basic-plan.service';
-
+import { Plan } from '../model/plan.model';
 
 @Component({
   selector: 'app-basic-plan',
@@ -10,30 +9,21 @@ import { BasicPlanService } from './basic-plan.service';
   styleUrls: ['./basic-plan.component.css']
 })
 export class BasicPlanComponent implements OnInit {
-  planDetails: any = {};
-  productDetails: any[] = [];
+  planDetails: any[] = []; // Initialize planDetails as null or with default values
+
   constructor(private basicPlanService: BasicPlanService) {}
+
   ngOnInit(): void {
-    this.loadProducts();
+    this.loadPlanDetails();
   }
 
-//  ok(): void {
-//     this.basicPlanService.getPlans().subscribe((data:) => {
-//       if (data && data.plans && data.plans.length > 0) {
-//         this.planDetails = data.plans[0];
-//          console.log(this.planDetails);
-//       }
-//     });
-//   }
-  loadProucts() {
-    this.basicPlanService.getProducts().subscribe(
+  loadPlanDetails() {
+    this.basicPlanService.getPlans().subscribe(
       (data: any[]) => {
-        this.productDetails = data;
+        this.planDetails = data ;
+        console.log(data); // Use null if plans[0] is undefined
       },
-      (error) => {
-        console.error('Error fetching products:', error);
-      }
+      
     );
   }
-  
 }
